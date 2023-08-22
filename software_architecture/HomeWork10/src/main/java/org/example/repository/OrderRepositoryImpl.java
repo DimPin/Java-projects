@@ -19,6 +19,11 @@ public class OrderRepositoryImpl implements OrderRepository{
     }
 
     @Override
+    public void createTable() {
+
+    }
+
+    @Override
     public void save(Order order) {
 
     }
