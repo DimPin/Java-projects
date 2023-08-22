@@ -2,11 +2,6 @@ package org.example.repository;
 
 import java.util.List;
 
-import org.example.repository.SQLiteProductRepository;
-import org.example.repository.ProductRepository;
-
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         String connectionString = "jdbc:sqlite:products.db";
