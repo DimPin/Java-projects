@@ -1,31 +1,47 @@
 package org.example.repository;
 
-import java.util.List;
+import org.example.agregator.Order;
+import org.example.agregator.OrderItem;
+import org.example.agregator.Product;
+
+import java.sql.SQLException;
 
 public class Main {
-    public static void main(String[] args) {
-        String connectionString = "jdbc:sqlite:products.db";
-        ProductRepository productRepository = new SQLiteProductRepository(connectionString);
+    public static void main(String[] args) throws SQLException {
+        OrderRepository orderRepository = new OrderRepositoryImpl("jdbc:sqlite:orders.db");
 
-        // Создаем таблицу "products" при запуске
-        productRepository.createTable();
+        orderRepository.initDatabase();
 
-        // Создаем продукт
-        Product newProduct = new Product(1, "Новый продукт", 19.99);
+        Product note = new Product(1, "Note", 100000.0);
+        Product book = new Product(2, "Book", 100.0);
 
-        // Добавляем продукт в базу данных
-        productRepository.add(newProduct);
+        Order order = new Order();
 
-        // Получаем продукт по ID
-        Product retrievedProduct = productRepository.getById(1);
-        if (retrievedProduct != null) {
-            System.out.println("Получен продукт: " + retrievedProduct.getName());
+        OrderItem orderItem = new OrderItem(note, 2);
+        order.addItem(orderItem);
+
+        OrderItem orderItem3 = new OrderItem(book, 5);
+        order.addItem(orderItem3);
+
+        orderRepository.save(order);
+
+        Order lastOrder = orderRepository.getLastOrder();
+
+        if (lastOrder != null) {
+            System.out.println("Последний сохраненный заказ:");
+            System.out.println(lastOrder);
+        } else {
+            System.out.println("В базе данных нет заказов");
         }
 
-        // Получаем все продукты
-        List<Product> allProducts = productRepository.getAll();
-        for (Product product : allProducts) {
-            System.out.println("Продукт: " + product.getName());
+        int id = 1;
+        Order orderbyId = orderRepository.getById(id);
+
+        if (orderbyId != null) {
+            System.out.println("Заказ с ID: " + id);
+            System.out.println(orderbyId);
+        } else {
+            System.out.println("Заказа с таким ID не существует");
         }
     }
 }
