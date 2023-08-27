@@ -1,3 +1,9 @@
+# HomeWork 5
+
+Джава - https://github.com/vyntyk/Srezy.git
+Питон - https://github.com/JuliaRyzhova/Software_architecture/tree/main/Seminar_5
+Реализовать любой паттерн с лекции . Выпустить диаграмму компонент UML по нему.
+
 # HomeWork 10
 
 Домашнее задание: Реализация паттернов Агрегатор, Репозиторий и Кеширования
